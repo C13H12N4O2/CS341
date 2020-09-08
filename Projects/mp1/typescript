@@ -1,0 +1,610 @@
+NAME  : SEONHONG HWANG
+ID    : 01486581
+CLASS : CS341 
+
+Script started on Sun Oct  1 19:10:11 2017
+warning: could not update utmp entry
+blade57(1)% ls -al
+total 184
+drwxr-sr-x   2 hseon        4096 Oct  1 19:04 .
+drwxrws---   4 hseon        4096 Sep 28 19:39 ..
+-rw-r--r--   1 hseon       12533 Sep 14 22:30 Rubric.docx
+-rw-r--r--   1 hseon        3325 Oct  1 14:48 cmds.c
+-rw-r--r--   1 hseon        6172 Oct  1 19:04 cmds.o
+-rw-r--r--   1 hseon        1304 Oct  1 19:04 cmds.opc
+-rw-r--r--   1 hseon        3128 Oct  1 18:52 discussion.txt
+-rw-r--r--   1 hseon        2772 Sep 14 22:30 makefile
+-rw-r--r--   1 hseon       51200 Sep 14 22:30 mp1.doc
+-rw-r--r--   1 hseon        2392 Sep 14 22:30 slex.c
+-rw-r--r--   1 hseon        1846 Sep 14 22:30 slex.h
+-rw-r--r--   1 hseon        3848 Oct  1 19:04 slex.o
+-rw-r--r--   1 hseon         473 Oct  1 19:04 slex.opc
+-rw-r--r--   1 hseon        2238 Oct  1 19:04 syms
+-rwxr-xr-x   1 hseon       14324 Oct  1 19:04 tutor
+-rw-r--r--   1 hseon        2210 Sep 14 22:30 tutor.c
+-rwxr-xr-x   1 hseon       29530 Oct  1 19:04 tutor.lnx
+-rw-r--r--   1 hseon        4072 Oct  1 19:04 tutor.o
+-rw-r--r--   1 hseon         725 Oct  1 19:04 tutor.opc
+-rw-r--r--   1 hseon           0 Oct  1 19:10 typescript
+-rw-r--r--   1 hseon        2031 Oct  1 19:04 usyms
+blade57(2)% cat discussion.txt
+NAME  : SEONHONG HWANG
+ID    : 01486581
+CLASS : CS341 
+
+1) 
+I have learned that address of the memory are shown differently depends on
+your environment. For example, tutor program were run on the UNIX and SAPC
+show a difference address of memory from same input.
+
+2)
+When I call an address that does not correspond to a physical memory address,
+I got "Segmentation fault (core dumped)" error on the UNIX version and
+"Exception 14 at EIP=00060d9e: Page fault" error on the SAPC version. Giving 
+an address that is part of tutor code or an address in ROM area of memory to
+tutor program shows Exception 13 at EIP=00060d9e: General protection violation.
+These answers of questions on the 
+UNIX and the SAPC do not show the same answers.
+
+3)
+        a)
+        The address of variable xyz:
+        md 00101e04 06 00 00 00 04 1e 10 00 28 82 06 00 00 00 00 00 ........(.......    
+   mdd 00101e04 00000006 00101e04 00068228 00000000 ........(....... 
+        b)
+        The address of variable pxyz:
+        md 00101e08 04 1e 10 00 28 82 06 00 00 00 00 00 00 00 00 00 ....(...........
+   mdd 00101e04 00068228 00000000 00000000 00000000 ....(...........    
+
+        c)
+        The string pointer to "md" is 00101dc8. 'm' is 00100454, 'd' is 00100455
+        and null of the string is 00100456.
+
+        d)
+        Find the address of the stop command 's'. The address of the stop command 
+        is 1003e9. Type "ms 1003e9 78" to change the stop command 's' to 'x'. The 
+        address of the help string for the stop command is 1003e7. Type
+        "ms 1003e7 58" to change the help string for the stop command 'S' to 'X'. 
+
+4)
+SAPC:
+The code resides between between 00100100 to 00101dc8. The data resides between
+00101e04 to 00101f94.
+UNIX:
+The file resides 00000000. The code resides between 00010664 to 00010fb0. The
+Data resides between 00010fc8 to 00021318.
+
+5)
+SAPC: I used ms command to change an address 00100124 which is /home/username/
+cs341/mp1/slex.opc. I cannot use any command on PC-tutor. If command was entered
+it gives General protection violation. Before that, changing a variable name 
+or a value of variable does not give an error.
+UNIX: Segmentation fault (core dumped)
+
+6)
+ESP: 0005788c
+sp : ffbef468
+
+EAX=00000001 EBX=00000000 EBP=00057890
+EDX=00000000 ECX=0006967c ESP=0005788c
+ESI=00013e10 EDI=00051ffc EIP=00057a9b
+EFLANGS=0206 (IF=1 SF=0 ZF=0 CF=0 OF=0)
+
+Stack level 0, frame at 0xffbef468:
+pc = 0x10de4 in mem_set (cmds.c:102); saved pc 0x10924
+called by frame at 0xffbef540
+source language c.
+Arglist at 0xffbef468, args: cp=0x212c4, arguments=0xffbef4d2 " 10c18 9e"
+Locals at 0xffbef468, Previous frame's sp in sp
+
+7)
+I have tried to change address of memory that stores information about where
+is .opc file on directory. /home/username/cs341/mp1/tutor.opc 
+I thought the address is physical address cannot be changed. However, it was
+not a physical address.
+
+8)
+I have learned how pointer works and memory address are resided. It was not 
+worth at all because I believe I have spent day twice than other classmates.
+Changing command 's' to 'x' was the hardest in the assignment. There were not
+the easiest. Accessing a memory address and changing a value was most interesting
+part of the assignment.
+blade57(3)% cat cmds.c
+/******************************************************************
+*
+*   file:     cmds.c
+*   author:   betty o'neil
+*   date:     ?
+*
+*   semantic actions for commands called by tutor (cs341, hw2)
+*
+*   revisions:
+*      9/90  eb   cleanup, convert function declarations to ansi
+*      9/91  eb   changes so that this can be used for hw1
+*      9/02  re   minor changes to quit command
+*/
+/* the Makefile arranges that #include <..> searches in the right
+   places for these headers-- 200920*/
+
+#include <stdio.h>
+#include "slex.h"
+
+/*===================================================================*
+*
+*   Command table for tutor program -- an array of structures of type
+*   cmd -- for each command provide the token, the function to call when
+*   that token is found, and the help message.
+*
+*   slex.h contains the typdef for struct cmd, and declares the
+*   cmds array as extern to all the other parts of the program.
+*   Code in slex.c parses user input command line and calls the
+*   requested semantic action, passing a pointer to the cmd struct
+*   and any arguments the user may have entered.
+*
+*===================================================================*/
+
+PROTOTYPE int stop(Cmd *cp, char *arguments);
+PROTOTYPE int mem_display(Cmd *cp, char *arguments);
+PROTOTYPE int mem_set(Cmd *cp, char *arguments);
+PROTOTYPE int help(Cmd *cp, char *arguments);
+
+/* command table */
+
+Cmd cmds[] = {{"md",  mem_display, "Memory Display      : MD <adddr>"},
+                          {"ms",  mem_set,     "Memory Set      : MS <addr> <val> [<val>...]"},
+                          {"h",   help,            "Display help        : H [command]"},
+              {"s",   stop,        "Stop                : S" },
+              {NULL,  NULL,        NULL}};  /* null cmd to flag end of table */
+
+char xyz = 6;  /* test global variable  */
+char *pxyz = &xyz;  /* test pointer to xyz */
+/*===================================================================*
+*               command                 routines
+*
+*   Each command routine is called with 2 args, the remaining
+*   part of the line to parse and a pointer to the struct cmd for this
+*   command. Each returns 0 for continue or 1 for all-done.
+*
+*===================================================================*/
+
+int stop(Cmd *cp, char *arguments)
+{
+  return 1;                     /* all done flag */
+}
+
+/*===================================================================*
+*
+*   mem_display: display contents of 16 bytes in hex
+*
+*/
+
+int mem_display(Cmd *cp, char *arguments)
+{
+        int address, i;
+        unsigned char *ptr;
+
+        sscanf(arguments, "%x", &address);
+        ptr = (unsigned char *) address;
+        
+        printf("%x ", address);
+
+        for (i = 0; i < 16; i++)
+                printf("%02x ", *ptr++);
+        
+        ptr = (unsigned char *) address;
+
+        for (i = 0; i < 16; i++) {
+                if (32 <= (int) *ptr && 126 >= (int) *ptr) 
+                        printf("%c", *ptr++);
+                else {
+                        printf(".");
+                        *ptr++;
+                }
+        }
+        printf("\n");
+        return 0;                       /* not done */
+}
+
+int mem_set(Cmd *cp, char *arguments) {
+        int address, value;
+        char *ptr;
+
+        sscanf(arguments, "%x %x", &address, &value);
+        ptr = (char *) address;
+        *ptr = value;
+        
+        return 0;
+}
+
+int help(Cmd *cp, char *arguments) {
+        char command[1];
+        int i;
+        sscanf(arguments, "%s", command);
+        
+        for (i = 0; i < 4; i++) {
+                if ((strcmp(cmds[i].cmdtoken, command)) == 0) {
+                        printf("%s\n", cmds[i].help);
+                        return 0;
+                }
+        }
+
+        for (i = 0; i< 4; i++)
+                printf("%s\n", cmds[i].help);
+        return 0;
+}
+blade57(4)% cat slex.c
+/******************************************************************
+*
+*   file:   slex.c
+*   author: betty o'neil
+*   date:   ?
+*
+*   simple lexical analyzer, front part of a parser                   
+*   --compare to UNIX tool "lex", general lexical analyzer            
+*   gets a (space-delimited) token from linebuf and tries to match    
+*   it to one of the cmdtokens in the provided cmdtable             
+*
+*   accepts:       
+*         linebuf--string to get token from                         
+*         cmdtable--cmdtable to use                                 
+*   returns:                                                          
+*         *cnum_ptr--command # (offset in cmdtable) or -1 if no match
+*         *pos_ptr--new place in linebuf after token match          
+*
+*   improvements needed:
+*         make token matching case independent
+*         skip whitespace, not just blanks
+*
+*   revisions: 
+*     9/90 cleanup, convert function headers to ansi form
+*
+*/
+
+#include <stdio.h>
+#include <string.h>
+#include "slex.h"               /* for definition of type cmd */
+
+int slex(char *linebuf,    /* string from user */
+         Cmd cmdtable[],   /* cmd table to use */
+         int *cnum_ptr,    /* returned command number */
+         int *pos_ptr)      /* returned new place in linebuf */
+{
+  int i = 0;
+  char token[MAXTOKENLEN];
+  int newpos;
+
+  if (gettoken(linebuf,token,&newpos)<0) /* get token from linebuf */
+    return -1;                  /* couldn't find token */
+
+  while ((cmdtable[i].cmdtoken != NULL)) {
+    if (strcmp(cmdtable[i].cmdtoken,token)==0) {
+        *cnum_ptr = i;          /* success--return command # */
+        *pos_ptr = newpos;      /* and where we got to in linebuf */
+        return 0;
+    }
+    else
+      i++;                      /* keep scanning table */
+  }
+  return -1;                    /* no match */
+}
+
+/******************************************************************
+ * get one space-delimited token from string in linebuf, also return 
+ * new position in string 
+ */
+int gettoken(char *linebuf, char *token, int *pos_ptr)
+{
+  int i = 0;
+  int j = 0;
+
+  while (linebuf[i] == ' ')
+    i++;                        /* skip blanks */
+  while (linebuf[i] != ' '&&linebuf[i]!='\0')
+    token[j++] = linebuf[i++];  /* copy chars to token */
+  if (j==0)
+    return -1;                  /* nothing there */
+  else
+    {
+      token[j] = '\0';          /* null-terminate token */
+      *pos_ptr = i;             /* return place in linebuf we got to */
+      return 0;                 /* success */
+    }
+}
+blade57(5)% ct[Kat tutor.c
+/******************************************************************
+*
+*   file:     tutor.c
+*   author:   eb
+*   date:     September, 1990
+*
+*   Driver for a "tutor" program to mimic and extend the MECB ROM TUTOR.
+* 
+*   built from betty o'neil's previous version
+*
+*   revisions:
+*   Jan '96: changed prompt to PC-tutor, now mimics floppy-based Tutor
+*/
+
+#include <stdio.h>
+#include "slex.h" 
+/* The preprocessor symbol SAPC is #defined in $pcinc/stdio.h.  This
+ * stdio.h is found by i386-gcc because of the -I flag in its compile command
+ * in the Makefile.  In the UNIX case, there is no such redirection,
+ * so the ordinary stdio.h is used, and it has no SAPC definition.
+ */
+#ifdef SAPC
+#define PROMPT "PC-tutor> "
+#else
+#define PROMPT "UNIX-tutor> "
+#endif
+int main(void);
+
+int main()
+{
+  int done = 0;
+  int cnum,linepos;
+  char linebuf[LINELEN];
+  Cmd *cp;
+
+  printf("     cmd    help message\n");
+  for(cp = cmds; cp->cmdtoken; cp++) 
+      printf("%8s    %s\n", cp->cmdtoken, cp->help);
+
+  while (!done) {
+    /* get cmd token from user by parsing first part of line in linebuf-- */
+    getcmd(linebuf,&cnum,&linepos);
+    /* call implementation routine for matched cmd-- */
+    /* (remaining part of line to parse starts at linebuf+linepos) */
+    done = cmds[cnum].cmdfn(&cmds[cnum], linebuf+linepos); 
+  }
+  return 0;
+}
+
+/***********************************************************************
+*
+*  getcmd 
+*
+* Better than scanf--read whole line in, parse resulting string.
+* Uses slex package to match cmd token in first part of linebuf 
+* and return command # and where to continue parsing.
+* Getcmd loops until user provides proper command, so no error return.
+*/
+void getcmd(char *linebuf, 
+             int *cnum_ptr,   /* returned command number */
+             int *pos_ptr     /* position in linebuf (after cmd token) */
+           )
+{
+  int done = 0;
+
+  while (!done) {
+     printf( PROMPT );
+     gets(linebuf);             /* read line from user, null terminate */
+     /* match cmd token to get cnum--call slex package to do lookup-- */
+     if (slex( linebuf, cmds, cnum_ptr, pos_ptr)==0) 
+         done = 1;      /* success in matching cmd */
+     else
+         printf(" No such command\n");
+  }
+}
+blade57(6)% make clean
+rm -f *.o *.opc *.syms *.usyms *.lnx tutor core syms usyms
+blade57(7)% make
+/groups/ulab/bin/i386-gcc -Wall -Wno-implicit -Wshadow -I/groups/ulab/pcdev/include -I/home/hseon/cs341/mp1 -c -o cmds.opc cmds.c
+cmds.c: In function `mem_display':
+cmds.c:89: warning: value computed is not used
+/groups/ulab/bin/i386-gcc -Wall -Wno-implicit -Wshadow -I/groups/ulab/pcdev/include -I/home/hseon/cs341/mp1 -c -o /home/hseon/cs341/mp1/tutor.opc /home/hseon/cs341/mp1/tutor.c
+/groups/ulab/bin/i386-gcc -Wall -Wno-implicit -Wshadow -I/groups/ulab/pcdev/include -I/home/hseon/cs341/mp1 -c -o /home/hseon/cs341/mp1/slex.opc /home/hseon/cs341/mp1/slex.c
+/groups/ulab/bin/i386-ld -N -Ttext 1000e0 -o tutor.lnx \
+        /groups/ulab/pcdev/lib/startup0.opc /groups/ulab/pcdev/lib/startup.opc \
+        /home/hseon/cs341/mp1/tutor.opc /home/hseon/cs341/mp1/slex.opc cmds.opc /groups/ulab/pcdev/lib/libc.a
+rm -f syms;/groups/ulab/bin/i386-nm -n tutor.lnx>syms
+blade57(8)% makee tu[K[K[K tutor
+gcc -Wall -Wno-implicit -Wshadow -g -I/home/hseon/cs341/mp1   -c -o /home/hseon/cs341/mp1/tutor.o /home/hseon/cs341/mp1/tutor.c
+gcc -Wall -Wno-implicit -Wshadow -g -I/home/hseon/cs341/mp1   -c -o /home/hseon/cs341/mp1/slex.o /home/hseon/cs341/mp1/slex.c
+gcc -Wall -Wno-implicit -Wshadow -g -I/home/hseon/cs341/mp1   -c -o cmds.o cmds.c
+gcc -g -o tutor /home/hseon/cs341/mp1/tutor.o /home/hseon/cs341/mp1/slex.o cmds.o
+rm -f usyms; nm -vpt x tutor > usyms
+blade57(9)% cat usyms
+
+
+tutor:
+0x00000000 f crtstuff.c
+0x00000000 f slex.c
+0x00000000 f tutor.c
+0x00000000 f crti.s
+0x00000000 s 
+0x00000000 s 
+0x00000000 s 
+0x00000000 s 
+0x00000000 s 
+0x00000000 s 
+0x00000000 s 
+0x00000000 s 
+0x00000000 s 
+0x00000000 s 
+0x00000000 s 
+0x00000000 s 
+0x00000000 s 
+0x00000000 f cmds.c
+0x00000000 f tutor
+0x00000000 f crtstuff.c
+0x00000000 f values-Xa.c
+0x00000000 U __deregister_frame_info
+0x00000000 U __register_frame_info
+0x00000000 U _Jv_RegisterClasses
+0x00000000 f crtn.s
+0x00010000 d _START_
+0x000100d4 s 
+0x000100e8 s 
+0x00010210 s 
+0x00010440 s 
+0x0001059c s 
+0x000105bc s 
+0x000105e0 s 
+0x000105ec s 
+0x00010664 s 
+0x00010664 T _start
+0x000106e0 t __do_global_dtors_aux
+0x0001078c t call___do_global_dtors_aux
+0x00010798 t frame_dummy
+0x0001081c t call_frame_dummy
+0x00010828 T main
+0x00010944 T getcmd
+0x000109e0 T slex
+0x00010aec T gettoken
+0x00010c18 T stop
+0x00010c34 T mem_display
+0x00010da4 T mem_set
+0x00010df8 T help
+0x00010f3c t __do_global_ctors_aux
+0x00010f88 t call___do_global_ctors_aux
+0x00010f94 s 
+0x00010f94 T _init
+0x00010fb0 s 
+0x00010fb0 T _fini
+0x00010fc8 D _lib_version
+0x00010fc8 s 
+0x00011114 D _etext
+0x00021114 D _GLOBAL_OFFSET_TABLE_
+0x00021114 s 
+0x0002113c D _PROCEDURE_LINKAGE_TABLE_
+0x0002113c s 
+0x0002116c U atexit
+0x00021178 U exit
+0x00021184 U _exit
+0x000211b4 U printf
+0x000211c0 U gets
+0x000211cc U strcmp
+0x000211d8 U sscanf
+0x000211e8 D _DYNAMIC
+0x000211e8 s 
+0x000212b0 s 
+0x000212b0 d force_to_data
+0x000212b4 D __dso_handle
+0x000212b8 D cmds
+0x000212f4 D xyz
+0x000212f8 D pxyz
+0x000212fc d force_to_data
+0x00021300 s 
+0x00021300 d __CTOR_LIST__
+0x00021304 d __CTOR_END__
+0x00021308 s 
+0x00021308 d __DTOR_LIST__
+0x0002130c d __DTOR_END__
+0x00021310 d __FRAME_END__
+0x00021310 s 
+0x00021310 d __EH_FRAME_BEGIN__
+0x00021314 s 
+0x00021314 d __JCR_LIST__
+0x00021314 d __JCR_END__
+0x00021318 s 
+0x00021318 d p.0
+0x0002131c b 
+0x0002131c b completed.1
+0x0002131c D _edata
+0x00021320 b object.2
+0x00021338 B environ
+0x00021338 B _environ
+0x0002133c B _end
+0x0002133c b _END_
+blade57(10)% cat syms
+00100100 t /groups/ulab/pcdev/lib/startup0.opc
+00100110 t /groups/ulab/pcdev/lib/startup.opc
+00100110 t ___gnu_compiled_c
+00100110 T _startupc
+00100110 t gcc2_compiled.
+00100124 t /home/hseon/cs341/mp1/tutor.opc
+00100124 t ___gnu_compiled_c
+00100124 t gcc2_compiled.
+0010014c T _main
+00100230 T _getcmd
+001002a0 t /home/hseon/cs341/mp1/slex.opc
+001002a0 t ___gnu_compiled_c
+001002a0 T _slex
+001002a0 t gcc2_compiled.
+00100344 T _gettoken
+001003d8 t ___gnu_compiled_c
+001003d8 t cmds.opc
+001003d8 t gcc2_compiled.
+00100458 T _stop
+0010047c T _mem_display
+00100554 T _mem_set
+00100594 T _help
+00100664 T _breakpoint
+00100664 t support.opc
+00100666 T _clr_bss
+00100678 t ___gnu_compiled_c
+00100678 T _init_devio
+00100678 t devio.opc
+00100678 t gcc2_compiled.
+00100688 T _init
+00100704 T _rawputc
+0010079c t _delay
+001007c4 T _putc
+001008ec T _rawgetc
+00100978 T _getc
+001009e0 T _readyc
+00100a6c T _devcontrol
+00100b00 T _devdescript
+00100b90 T _devname
+00100c10 t ___gnu_compiled_c
+00100c10 T ___main
+00100c10 t extra.opc
+00100c10 t gcc2_compiled.
+00100c18 t ___gnu_compiled_c
+00100c18 T _printf
+00100c18 t gcc2_compiled.
+00100c18 t printf.opc
+00100c40 t ___gnu_compiled_c
+00100c40 T _gets
+00100c40 t gcc2_compiled.
+00100c40 t gets.opc
+00100c98 t ___gnu_compiled_c
+00100c98 T _strcmp
+00100c98 t gcc2_compiled.
+00100c98 t strcmp.opc
+00100cd8 t ___gnu_compiled_c
+00100cd8 T _scanf
+00100cd8 t gcc2_compiled.
+00100cd8 t scanf.opc
+00100d10 T _fscanf
+00100d4c t _getch
+00100d94 t _ungetch
+00100dac T _sscanf
+00100de4 t _sgetch
+00100e18 t _sungetch
+00100e38 t ___gnu_compiled_c
+00100e38 t doprnt.opc
+00100e38 t gcc2_compiled.
+00100e68 T __doprnt
+00101668 t ___gnu_compiled_c
+00101668 T __doscan
+00101668 t doscan.opc
+00101668 t gcc2_compiled.
+00101940 t __innum
+00101bd0 t __instr
+00101d18 t __getccl
+00101da8 t ___gnu_compiled_c
+00101da8 T _strlen
+00101da8 t gcc2_compiled.
+00101da8 t strlen.opc
+00101dc8 t ___gnu_compiled_c
+00101dc8 T __etext
+00101dc8 D _cmds
+00101dc8 T _etext
+00101dc8 t ctype.opc
+00101dc8 t gcc2_compiled.
+00101e04 D _xyz
+00101e08 D _pxyz
+00101e0c D _sysapi2
+00101e10 D __sctab
+00101e90 D __ctype
+00101f94 D __edata
+00101f94 D _edata
+00101f98 B __bss_start
+00101f98 b _count
+00101fa0 B __ctmp
+00101fa4 B __end
+00101fa4 B _end
+blade57(11)% eex[K[Kxit
+script done on Sun Oct  1 19:11:19 2017

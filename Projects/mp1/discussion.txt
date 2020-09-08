@@ -1,0 +1,81 @@
+NAME  : SEONHONG HWANG
+ID    : 01486581
+CLASS : CS341 
+
+1) 
+I have learned that address of the memory are shown differently depends on
+your environment. For example, tutor program were run on the UNIX and SAPC
+show a difference address of memory from same input.
+
+2)
+When I call an address that does not correspond to a physical memory address,
+I got "Segmentation fault (core dumped)" error on the UNIX version and
+"Exception 14 at EIP=00060d9e: Page fault" error on the SAPC version. Giving 
+an address that is part of tutor code or an address in ROM area of memory to
+tutor program shows Exception 13 at EIP=00060d9e: General protection violation.
+These answers of questions on the 
+UNIX and the SAPC do not show the same answers.
+
+3)
+	a)
+	The address of variable xyz:
+	md 00101e04 06 00 00 00 04 1e 10 00 28 82 06 00 00 00 00 00 ........(.......	
+   mdd 00101e04 00000006 00101e04 00068228 00000000 ........(....... 
+	b)
+	The address of variable pxyz:
+	md 00101e08 04 1e 10 00 28 82 06 00 00 00 00 00 00 00 00 00 ....(...........
+   mdd 00101e04 00068228 00000000 00000000 00000000 ....(...........	
+
+	c)
+	The string pointer to "md" is 00101dc8. 'm' is 00100454, 'd' is 00100455
+	and a null string is 00100456.
+
+	d)
+	Find the address of the stop command 's'. The address of the stop command 
+	is 1003e9. Type "ms 1003e9 78" to change the stop command 's' to 'x'. The 
+	address of the help string for the stop	command is 1003e7. Type
+	"ms 1003e7 58" to change the help string for the stop command 'S' to 'X'. 
+
+4)
+SAPC:
+The code resides between between 00100100 to 00101dc8. The data resides between
+00101e04 to 00101f94.
+UNIX:
+The file resides 00000000. The code resides between 00010664 to 00010fb0. The
+Data resides between 00010fc8 to 00021318.
+
+5)
+SAPC: I used ms command to change an address 00100124 which is /home/username/
+cs341/mp1/slex.opc. I cannot use any command on PC-tutor. If command was entered
+it gives General protection violation. Before that, changing a variable name 
+or a value of variable does not give an error.
+UNIX: Segmentation fault (core dumped)
+
+6)
+ESP: 0005788c
+sp : ffbef468
+
+EAX=00000001 EBX=00000000 EBP=00057890
+EDX=00000000 ECX=0006967c ESP=0005788c
+ESI=00013e10 EDI=00051ffc EIP=00057a9b
+EFLANGS=0206 (IF=1 SF=0 ZF=0 CF=0 OF=0)
+
+Stack level 0, frame at 0xffbef468:
+pc = 0x10de4 in mem_set (cmds.c:102); saved pc 0x10924
+called by frame at 0xffbef540
+source language c.
+Arglist at 0xffbef468, args: cp=0x212c4, arguments=0xffbef4d2 " 10c18 9e"
+Locals at 0xffbef468, Previous frame's sp in sp
+
+7)
+I have tried to change address of memory that stores information about where
+is .opc file on directory. /home/username/cs341/mp1/tutor.opc 
+I thought the address is physical address cannot be changed. However, it was
+not a physical address.
+
+8)
+I have learned how pointer works and memory address are resided. It was not 
+worth at all because I believe I have spent day twice than other classmates.
+Changing command 's' to 'x' was the hardest in the assignment. There were not
+the easiest. Accessing a memory address and changing a value was most interesting
+part of the assignment.

@@ -1,0 +1,168 @@
+Seonhong Hwang
+Duojia Zhang
+
+Script started on Sat Oct 21 12:32:02 2017
+warning: could not update utmp entry
+blade57(1)% pwd
+/courses/cs341/f17/cheungr/hseon/mp2
+blade57(2)% ls -lg
+total 276
+-rwxr-xr-x   1 hseon    cs341-1G    26805 Oct 14 23:18 count.lnx
+-rw-r--r--   1 hseon    cs341-1G      152 Oct 14 23:18 count.opc
+-rw-r--r--   1 hseon    cs341-1G      327 Oct 14 19:56 count.s
+-rw-r--r--   1 hseon    cs341-1G     1757 Oct 14 23:18 count.syms
+-rw-r--r--   1 hseon    cs341-1G     2896 Oct 14 23:26 count_ulab.script
+-rw-r--r--   1 hseon    cs341-1G     3215 Oct 14 23:47 count_vm.script
+-rw-r--r--   1 hseon    cs341-1G      398 Oct 13 23:33 countc.c
+-rw-r--r--   1 hseon    cs341-1G     1641 Oct 14 23:18 countc.opc
+-rw-r--r--   1 hseon    cs341-1G     2173 Oct 10 15:53 makefile
+-rw-r--r--   1 hseon    cs341-1G   147915 Oct 10 15:53 mp2.pdf
+-rw-r--r--   1 hseon    cs341-1G      102 Oct 16 14:23 printbin.s
+-rw-r--r--   1 hseon    cs341-1G      395 Oct 10 15:53 printbinc.c
+-rwxr-xr-x   1 hseon    cs341-1G    18007 Oct 21 12:20 strcpy.lnx
+-rw-r--r--   1 hseon    cs341-1G      131 Oct 21 12:15 strcpy.opc
+-rw-r--r--   1 hseon    cs341-1G     1541 Oct 21 12:15 strcpy.s
+-rw-r--r--   1 hseon    cs341-1G     1346 Oct 21 12:20 strcpy.syms
+-rw-r--r--   1 hseon    cs341-1G      618 Oct 21 12:27 strcpyc.c
+-rw-r--r--   1 hseon    cs341-1G     1971 Oct 21 12:20 strcpyc.opc
+-rw-r--r--   1 hseon    cs341-1G      426 Oct 10 15:53 sum10.s
+-rw-r--r--   1 hseon    cs341-1G     4696 Oct 10 15:53 sum10.script_mod.txt
+-rw-r--r--   1 hseon    cs341-1G      159 Oct 10 15:53 sum10c.c
+lrwxrwxrwx   1 hseon    cs341-1G       11 Oct 21 12:20 syms -> strcpy.syms
+-rw-r--r--   1 hseon    cs341-1G        0 Oct 21 12:32 typescript
+drwxrwsr-x   2 hseon    cs341-1G     4096 Oct  5 16:10 warmup
+blade57(3)% cat strcpy.s
+.text
+.globl _mystrcpy
+
+_mystrcpy:
+        push    %ebp
+        mov             8(%esp), %edi
+        mov             12(%esp), %esi
+
+loop:
+        mov             (%esi), %eax
+        mov             %eax, (%edi)
+        movb    (%esi), %al
+        cmpb    %al, 0x03
+        je              end
+        add             $1,     %edi
+        add             $1, %esi
+        jmp             loop
+
+end:
+        mov             8(%esp), %eax
+        pop             %ebp
+        ret
+
+#_mystrcpy:
+#       push    %ebp
+#       mov             8(%esp), %edx
+#       mov             12(%esp), %ebx
+#
+#loop:
+#       movl    (%ebx), %eax
+#       movb    (%ebx), %bl
+#       cmpb    %bl, 0x03
+#       je              end
+#       mov             %eax, (%edx)
+#       mov             %ebx, %ebx
+#       mov             %edx, %edx
+#       jmp             loop
+#
+#end:
+#       mov             %eax, (%edx)
+#       movl    %edx, %eax
+#       pop     %ebp
+#       ret
+
+#_mystrcpy:
+#       push    %ebp
+#       mov             8(%esp), %edx
+#       mov             12(%esp), %ebx
+#
+#start:
+#       mov             $0, %ecx
+#       movl    (%ebx), %eax
+#       movb    (%ebx), %bl
+#
+#loop:
+#       cmp             $5, %ecx
+#       je              next    
+#       cmpb    %bl, 0x03
+#       je              end
+#       inc             %ecx
+#       add             $1, %ebx
+#       movb    (%ebx), %bl
+#       jmp             loop
+#
+#next:
+#       movl    %eax, (%edx)
+#       add             $4, %edx
+#       jmp             start
+#
+#end:
+#       movl    %eax, (%edx)
+#       movl    %edx, %eax
+#       popl    %ebp
+#       ret
+
+#_mystrcpy:
+#       push    %ebp
+#       movl    8(%esp), %edx
+#       mov             12(%esp), %ebx
+#       movl    (%ebx), %eax
+#       movb    (%ebx), %bl
+#
+#start:
+#       cmpb    %bl, 0x00
+#       jne             loop
+#
+#CheckNull:
+#       add             $1, %ebx
+#       movl    (%ebx), %eax
+#       movb    (%ebx), %bl
+#       cmpb    %bl, 0x00
+#       je              CheckNull
+#       jmp             end
+#
+#loop:
+#       movl    %eax, (%edx)
+#       add             $4, %ebx
+#       movl    (%ebx), %eax
+#       movb    (%ebx), %bl
+#       jmp             start   
+#       
+#end:
+#       movl    %edx, %eax
+#       popl    %ebp
+#       ret
+
+
+
+#_mystrcpy:
+#       pushl   %ebp
+#       movl    8(%esp), %ecx
+#       movl    12(%esp), %eax
+#       movl    (%eax), %edx
+#       movl    %edx, (%ecx)
+#       movl    (%eax), %edx
+#       movl    %edx, (%ecx)
+#       movl    (%eax), %edx
+#       movl    %edx, (%ecx)
+#       movl    %ecx, %eax
+#       popl    %ebp
+#       ret
+blade57(4)% makee [K A-s[K[K=strcpy
+/groups/ulab/bin/i386-gcc -g -Wall -Wno-implicit -Wshadow -I/groups/ulab/pcdev/include -c -o strcpyc.opc strcpyc.c
+/groups/ulab/bin/i386-ld -N -Ttext 1000e0 -o strcpy.lnx \
+        /groups/ulab/pcdev/lib/startup0.opc /groups/ulab/pcdev/lib/startup.opc \
+        strcpyc.opc strcpy.opc /groups/ulab/pcdev/lib/libc.a
+rm -f syms;/groups/ulab/bin/i386-nm -n strcpy.lnx>strcpy.syms;ln -s strcpy.syms syms
+blade57(6)% exit
+exit
+
+script done on Sat Oct 21 12:33:24 2017
+
+What would happen if you choose a string longer than the destination array in the C driver?
+It gives Exception 13 at EIP=0010656a: General protection violation.

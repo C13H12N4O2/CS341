@@ -1,0 +1,28 @@
+Script started on Tue 31 Oct 2017 07:48:50 PM EDT
+]0;tuser@tutor-vserver: ~/cs341/mp2tuser@tutor-vserver:~/cs341/mp2$ exitmtip -f printbin.lnxscp -r hseon@users.cs.umb.edu:~/cs341/mp2/printbbin.lnx .[A]0;tuser@tutor-vserver: ~/cs341/mp2tuser@tutor-vserver:~/cs341/mp2$ [27Pmtip -f printbin.lnx
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cscp -r hseon@users.cs.umb.edu:~/cs341/mp2/printbbin.lnx .
+hseon@users.cs.umb.edu's password: 
+printbin.lnx                                    0%    0     0.0KB/s   --:-- ETAprintbin.lnx                                  100%   26KB  26.2KB/s   00:00    
+]0;tuser@tutor-vserver: ~/cs341/mp2tuser@tutor-vserver:~/cs341/mp2$ scp -r hseon@users.cs.umb.edu:~/cs341/mp2/printbbin.lnx .[A]0;tuser@tutor-vserver: ~/cs341/mp2tuser@tutor-vserver:~/cs341/mp2$ exit[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cmtip -f printbin.lnx
+For command help, type ~?
+For help on args, rerun without args
+Code starts at 0x100100
+Using board # 1 
+~downloading printbin.lnx
+
+.......Done.
+
+Download done, setting EIP to 100100.
+Tutor> go 100100
+enter the character's ascii value in hex: 
+41
+The binary format for character A is 0100 0001
+Exception 3 at EIP=00100110: Breakpoint
+Tutor> ~q 
+Quit handler: 
+killing process 1877 Leaving board #1
+]0;tuser@tutor-vserver: ~/cs341/mp2tuser@tutor-vserver:~/cs341/mp2$ exit
+exit
+
+Script done on Tue 31 Oct 2017 07:49:48 PM EDT

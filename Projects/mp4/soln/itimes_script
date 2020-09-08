@@ -1,0 +1,43 @@
+Script started on Mon Apr  7 10:42:18 2008
+warning: could not update utmp entry
+u17(1)%	mtip -f itimes.lnx
+For command help, type ~?
+For help on args, rerun without args
+Code starts at 0x100100
+Using board # 1 
+
+Tutor> ~downloading itimes.lnx
+........Done.
+
+Download done, setting EIP to 100100.
+Tutor> go 100100
+Calling inittimer...
+Calling locate_idt to do sidt instruction...
+Found idt at 56060, lim 7ff
+Filling in desc at 56160 with addr 1014a0
+...inittimer done.
+Each instruction timing test will execute 100 million instructions
+
+CPU Caches off and empty now
+C Test takes 1933 ms, 618 ns/pass
+Test overhead is 15 ms
+Test 1: movl %eax,%edx --- 2167 ms, 21.67 ns/instruction
+Test 2: movl <mem address>, %eax --- 6906 ms, 69.07 ns/instruction
+Test 3: movl $IDATA, %eax --- 3695 ms, 36.95 ns/instruction
+Test 4: movl $12345678, -4(%esp) --- 8309 ms, 83.10 ns/instruction
+
+CPU Caches back on, as normal
+C Test takes 77 ms, 24 ns/pass
+Test overhead is 7 ms
+Test 1: movl %eax,%edx --- 116 ms, 1.17 ns/instruction
+Test 2: movl <mem address>, %eax --- 226 ms, 2.26 ns/instruction
+Test 3: movl $IDATA, %eax --- 124 ms, 1.25 ns/instruction
+Test 4: movl $12345678, -4(%esp) --- 241 ms, 2.42 ns/instruction
+
+End of itimes.
+Exception 3 at EIP=00100110: Breakpoint
+Tutor> ~q 
+Quit handler: 
+killing process 22261 Leaving board #1
+u17(2)%	exit
+script done on Mon Apr  7 10:44:23 2008

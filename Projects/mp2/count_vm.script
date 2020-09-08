@@ -1,0 +1,73 @@
+Script started on Sat 14 Oct 2017 11:30:10 PM EDT
+]0;tuser@tutor-vserver: ~/cs341/mp2tuser@tutor-vserver:~/cs341/mp2$ mtip -f count.lnxls[Kgdb count.lnxls[Kgdb count.lnxls[Kmtip -f count.lnx[Kmtip -f count.lnxls[Kgdb count.lnxls[Kcd mp2[4Plscd cs341ls[Kexitmtip -f count.lnxscp -r hseon@users.cs.umb.edu:~/cs341/mp2/count.lnx .[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cmtip -f count.lnx[Kscp -r hseon@users.cs.umb.edu:~/cs341/mp2/count.lnx .
+hseon@users.cs.umb.edu's password: 
+count.lnx                                                                    0%    0     0.0KB/s   --:-- ETAcount.lnx                                                                  100%   26KB  26.2KB/s   00:00    
+]0;tuser@tutor-vserver: ~/cs341/mp2tuser@tutor-vserver:~/cs341/mp2$ scp -r hseon@users.cs.umb.edu:~/cs341/mp2/count.lnx .[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cmtip -f count.lnx[K
+For command help, type ~?
+For help on args, rerun without args
+Code starts at 0x100100
+Using board # 1 
+~downloading count.lnx
+
+.......Done.
+
+Download done, setting EIP to 100100.
+Tutor> go 100      b 100238
+Tutor> go 100100
+Enter a string of characters:
+10101111
+Enter a character to count:
+1Exception 3 at EIP=00100238: Breakpoint
+Tutor> rd
+EAX=00000001 EBX=00000031   EBP=003fff68
+EDX=00000001 ECX=00000000   ESP=003fff60
+ESI=003fff7c EDI=00101aac   EIP=00100238
+EFLAGS=0202 (IF=1 SF=0 ZF=0 CF=0 OF=0)
+Tutor> go
+Exception 3 at EIP=00100238: Breakpoint
+Tutor> rd
+EAX=00000002 EBX=00000031   EBP=003fff68
+EDX=00000001 ECX=00000002   ESP=003fff60
+ESI=003fff7e EDI=00101aac   EIP=00100238
+EFLAGS=0202 (IF=1 SF=0 ZF=0 CF=0 OF=0)
+Tutor> go
+Exception 3 at EIP=00100238: Breakpoint
+Tutor> rd
+EAX=00000003 EBX=00000031   EBP=003fff68
+EDX=00000001 ECX=00000004   ESP=003fff60
+ESI=003fff80 EDI=00101aac   EIP=00100238
+EFLAGS=0206 (IF=1 SF=0 ZF=0 CF=0 OF=0)
+Tutor> go
+Exception 3 at EIP=00100238: Breakpoint
+Tutor> rd
+EAX=00000004 EBX=00000031   EBP=003fff68
+EDX=00000001 ECX=00000005   ESP=003fff60
+ESI=003fff81 EDI=00101aac   EIP=00100238
+EFLAGS=0202 (IF=1 SF=0 ZF=0 CF=0 OF=0)
+Tutor> go
+Exception 3 at EIP=00100238: Breakpoint
+Tutor> rd
+EAX=00000005 EBX=00000031   EBP=003fff68
+EDX=00000001 ECX=00000006   ESP=003fff60
+ESI=003fff82 EDI=00101aac   EIP=00100238
+EFLAGS=0206 (IF=1 SF=0 ZF=0 CF=0 OF=0)
+Tutor> go
+Exception 3 at EIP=00100238: Breakpoint
+Tutor> rd
+EAX=00000006 EBX=00000031   EBP=003fff68
+EDX=00000001 ECX=00000007   ESP=003fff60
+ESI=003fff83 EDI=00101aac   EIP=00100238
+EFLAGS=0206 (IF=1 SF=0 ZF=0 CF=0 OF=0)
+Tutor> go
+
+The number of 1's in the string 10101111 is 6
+Exception 3 at EIP=00100110: Breakpoint
+Tutor> exit
+No such command: exit, use h command for help
+Tutor> ~q 
+Quit handler: 
+killing process 1906 Leaving board #1
+]0;tuser@tutor-vserver: ~/cs341/mp2tuser@tutor-vserver:~/cs341/mp2$ exit
+exit
+
+Script done on Sat 14 Oct 2017 11:32:20 PM EDT

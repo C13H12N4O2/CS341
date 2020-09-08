@@ -1,0 +1,48 @@
+Script started on Sat Apr  5 13:03:52 2003
+warning: could not update utmp entry
+u18(1)% mtip -f itimes.lnx
+For command help, type ~?
+For help on args, rerun without args
+Code starts at 0x100100
+Using board # 2 
+
+Tutor> ~downloading itimes.lnx
+.......Done.
+
+Download done, setting EIP to 100100.
+Tutor> md 1005e4
+001005e4    89 c2 89 c2 89 c2 89 c2 89 c2 89 c2 89 c2 89 c2 ................
+Tutor> md 100628
+00100628    a1 a0 1b 10 00 a1 a4 1b 10 00 a1 a8 1b 10 00 a1 ................
+Tutor> md 1006ca
+001006ca    b8 00 00 00 00 b8 00 00 00 00 b8 00 00 00 00 b8 ................
+Tutor> md 10076c
+0010076c    31 c0 31 c0 31 c0 31 c0 31 c0 31 c0 31 c0 31 c0 1.1.1.1.1.1.1.1.
+Tutor> go
+Calling inittimer...
+...inittimer done.
+Each instruction timing test will execute 100 million instructions
+
+CPU Caches off and empty now
+C Test takes 23 ms, 7 ns/pass
+Test overhead is 530 ms
+Test 1: movl %eax,%edx --- 1122 ms, 11.23 ns/instruction
+Test 2: movl <mem address>, %eax --- 6392 ms, 63.92 ns/instruction
+Test 3: movl $IDATA, %eax --- 2650 ms, 26.50 ns/instruction
+Test 4: xorl %eax, %eax --- 1122 ms, 11.23 ns/instruction
+
+CPU Caches back on, as normal
+C Test takes 15 ms, 4 ns/pass
+Test overhead is 7 ms
+Test 1: movl %eax,%edx --- 116 ms, 1.17 ns/instruction
+Test 2: movl <mem address>, %eax --- 249 ms, 2.49 ns/instruction
+Test 3: movl $IDATA, %eax --- 124 ms, 1.25 ns/instruction
+Test 4: xorl %eax, %eax --- 116 ms, 1.17 ns/instruction
+
+End of itimes.
+Exception 3 at EIP=00100110: Breakpoint
+Tutor> ~q 
+Quit handler: 
+killing process 7071 Leaving board #2
+u18(2)% exit
+script done on Sat Apr  5 13:06:21 2003

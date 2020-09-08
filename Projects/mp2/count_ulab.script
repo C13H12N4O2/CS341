@@ -1,0 +1,73 @@
+Script started on Sat Oct 14 23:18:28 2017
+warning: could not update utmp entry
+blade57(1)% pwd
+/courses/cs341/f17/cheungr/hseon/mp2
+blade57(2)% ls -lg
+total 240
+-rwxr-xr-x   1 hseon    cs341-1G    26805 Oct 14 22:03 count.lnx
+-rw-r--r--   1 hseon    cs341-1G      152 Oct 14 22:03 count.opc
+-rw-r--r--   1 hseon    cs341-1G      327 Oct 14 19:56 count.s
+-rw-r--r--   1 hseon    cs341-1G     1757 Oct 14 22:03 count.syms
+-rw-r--r--   1 hseon    cs341-1G      398 Oct 13 23:33 countc.c
+-rw-r--r--   1 hseon    cs341-1G     1641 Oct 13 23:33 countc.opc
+-rw-r--r--   1 hseon    cs341-1G     2173 Oct 10 15:53 makefile
+-rw-r--r--   1 hseon    cs341-1G   147915 Oct 10 15:53 mp2.pdf
+-rw-r--r--   1 hseon    cs341-1G      103 Oct 14 19:20 printbin.opc
+-rw-r--r--   1 hseon    cs341-1G      118 Oct 14 19:19 printbin.s
+-rw-r--r--   1 hseon    cs341-1G      395 Oct 10 15:53 printbinc.c
+-rw-r--r--   1 hseon    cs341-1G     1503 Oct 14 19:20 printbinc.opc
+-rw-r--r--   1 hseon    cs341-1G      616 Oct 10 15:53 strcpyc.c
+-rw-r--r--   1 hseon    cs341-1G      426 Oct 10 15:53 sum10.s
+-rw-r--r--   1 hseon    cs341-1G     4696 Oct 10 15:53 sum10.script_mod.txt
+-rw-r--r--   1 hseon    cs341-1G      159 Oct 10 15:53 sum10c.c
+lrwxrwxrwx   1 hseon    cs341-1G       10 Oct 14 22:03 syms -> count.syms
+-rw-r--r--   1 hseon    cs341-1G        0 Oct 14 23:18 typescript
+drwxrwsr-x   2 hseon    cs341-1G     4096 Oct  5 16:10 warmup
+blade57(3)% cat count.s
+.text
+.globl _count
+
+_count:
+        push    %ebp
+        mov             %esp, %ebp
+        sub             $8, %esp
+        mov             8(%ebp), %esi
+        movb    12(%ebp), %ebx
+        mov             $0, %eax
+        mov             $0, %ecx
+        cmpb    (%esi), %ebx
+        je              inc
+
+loop:
+        inc             %ecx
+        cmp             $100, %ecx
+        je              end
+        add             $1, %esi
+        cmpb    (%esi), %ebx
+        jne             loop
+
+inc:
+        inc             %eax
+        jmp             loop
+
+end:
+        mov             %ebp, %esp
+        pop             %ebp
+        ret
+blade57(4)% makee cl[K[K[K cleean[K[K[Kan
+rm -f *.o *.opc *.syms *.lnx core syms
+blade57(5)% make A-co[K[K[K=count
+/groups/ulab/bin/i386-as -o count.opc count.s
+/groups/ulab/bin/i386-gcc -g -Wall -Wno-implicit -Wshadow -I/groups/ulab/pcdev/include -c -o countc.opc countc.c
+/groups/ulab/bin/i386-ld -N -Ttext 1000e0 -o count.lnx \
+        /groups/ulab/pcdev/lib/startup0.opc /groups/ulab/pcdev/lib/startup.opc \
+        countc.opc count.opc /groups/ulab/pcdev/lib/libc.a
+rm -f syms;/groups/ulab/bin/i386-nm -n count.lnx>count.syms;ln -s count.syms syms
+blade57(6)% exit
+script done on Sat Oct 14 23:18:57 2017
+
+
+
+
+The increment instruction is located at 00100238 right next to inc function 
+which is located at 00100237

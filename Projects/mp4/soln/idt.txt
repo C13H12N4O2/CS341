@@ -1,0 +1,6 @@
+Calling locate_idt to do sidt instruction...
+Found idt at 56060, lim 7ff
+Filling in desc at 56160 with addr 101240
+
+00056160    40 12 10 00 00 8e 10 00 c0 84 10 00 00 8e 05 00 @...............
+

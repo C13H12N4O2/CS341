@@ -1,0 +1,49 @@
+Script started on Mon May 12 14:03:38 2003
+warning: could not update utmp entry
+u18(1)% mtip -b 5 -f tutor.lnx
+For command help, type ~?
+For help on args, rerun without args
+Code starts at 0x100100
+Using board # 5 
+
+Tutor> ~downloading tutor.lnx
+...........Done.
+
+Download done, setting EIP to 100100.
+Tutor> go 100100
+    cmd     help message
+  timeon    Timer On: TIMEON <interval in secs>
+ timeoff    Timer Off: TIMEOFF 
+     spi    Serial Port Interrupts: SPI <device> <on/off>
+      md    Memory display: MD <addr>
+      ms    Memory set: MS <addr>
+       h    Help: H <cmd> or H (for all)
+       q    Quit
+PC-tutor> spi 1 on
+comints for COM1 on
+PC-tutor> I typed this in from another window into COM1 port.
+spi 1 on
+error: comints already on for COM1
+PC-tutor> spi 1 off
+comints for COM1 off
+PC-tutor> spi 1 off
+error: comints already off for COM1
+PC-tutor> spi 2 off
+error: comints already off for COM2
+PC-tutor> spi 2 on
+comints for COM2 on
+PC-tutor> See tutor grabbed the text chars
+ No such command
+PC-tutor> spi 2 on
+error: comints already on for COM2
+PC-tutor> spi 2 off
+comints for COM2 off
+PC-tutor> spi 2 off
+error: comints already off for COM2
+PC-tutor> spi 1 off
+error: comints already off for COM1
+PC-tutor> ~q 
+Quit handler: 
+killing process 28552 Leaving board #5
+u18(2)% exit
+script done on Mon May 12 14:06:33 2003
